@@ -23,9 +23,9 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/CanonicalLtd/iot-identity/config"
-	"github.com/CanonicalLtd/iot-identity/datastore"
-	"github.com/CanonicalLtd/iot-identity/domain"
+	"github.com/everactive/iot-identity/config"
+	"github.com/everactive/iot-identity/datastore"
+	"github.com/everactive/iot-identity/domain"
 	"github.com/snapcore/snapd/asserts"
 )
 
@@ -33,6 +33,7 @@ import (
 type Identity interface {
 	RegisterOrganization(req *RegisterOrganizationRequest) (string, error)
 	RegisterDevice(req *RegisterDeviceRequest) (string, error)
+	DeleteDevice(deviceID string) (string, error)
 	OrganizationList() ([]domain.Organization, error)
 	DeviceList(orgID string) ([]domain.Enrollment, error)
 	DeviceGet(orgID, deviceID string) (*domain.Enrollment, error)

@@ -21,8 +21,8 @@ package memory
 
 import (
 	"fmt"
-	"github.com/CanonicalLtd/iot-identity/datastore"
-	"github.com/CanonicalLtd/iot-identity/domain"
+	"github.com/everactive/iot-identity/datastore"
+	"github.com/everactive/iot-identity/domain"
 )
 
 // Store implements an in-memory store for testing
@@ -108,6 +108,10 @@ func (mem *Store) OrganizationGet(id string) (*domain.Organization, error) {
 		}
 	}
 	return nil, fmt.Errorf("cannot find organization with ID '%s'", id)
+}
+
+func (mem *Store) DeviceDelete(deviceID string) (string, error) {
+	return "", nil
 }
 
 // DeviceNew creates a new device registration

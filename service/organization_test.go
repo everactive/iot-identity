@@ -20,8 +20,8 @@
 package service
 
 import (
-	"github.com/CanonicalLtd/iot-identity/config"
-	"github.com/CanonicalLtd/iot-identity/datastore/memory"
+	"github.com/everactive/iot-identity/config"
+	"github.com/everactive/iot-identity/datastore/memory"
 	"testing"
 )
 

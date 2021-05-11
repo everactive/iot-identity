@@ -36,6 +36,12 @@ type RegisterDeviceRequest struct {
 	DeviceData     string `json:"deviceData"`
 }
 
+// DeleteDeviceRequest is the request to delete a device
+type DeleteDeviceRequest struct {
+	OrganizationID string `json:"orgid"`
+	DeviceID   string `json:"deviceID"`
+}
+
 // EnrollDeviceRequest is the request to enroll a device via assertions
 type EnrollDeviceRequest struct {
 	Model  asserts.Assertion

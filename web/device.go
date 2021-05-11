@@ -22,7 +22,7 @@ package web
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/CanonicalLtd/iot-identity/service"
+	"github.com/everactive/iot-identity/service"
 	"github.com/gorilla/mux"
 	"github.com/snapcore/snapd/asserts"
 	"io"
@@ -72,6 +72,19 @@ func (wb IdentityService) DeviceUpdate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	formatStandardResponse("", "", w)
+}
+
+// DeleteDevice unregisters a new device with the identity service
+func (wb IdentityService) DeleteDevice(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+
+	id, err := wb.Identity.DeleteDevice(vars["deviceid"])
+	if err != nil {
+		log.Println("Error deleting device:", err)
+		formatStandardResponse("DeleteDevice", err.Error(), w)
+		return
+	}
+	formatRegisterResponse(id, w)
 }
 
 // RegisterDevice registers a new device with the identity service
@@ -125,6 +138,25 @@ func (wb IdentityService) EnrollDevice(w http.ResponseWriter, r *http.Request) {
 	}
 
 	formatEnrollResponse(*en, w)
+}
+
+func decodeDeleteDeviceRequest(w http.ResponseWriter, r *http.Request) (*service.DeleteDeviceRequest, error) { // Decode the REST request
+	defer r.Body.Close()
+
+	// Decode the JSON body
+	dev := service.DeleteDeviceRequest{}
+	err := json.NewDecoder(r.Body).Decode(&dev)
+	switch {
+	// Check we have some data
+	case err == io.EOF:
+		formatStandardResponse("NoData", "No data supplied.", w)
+		log.Println("No data supplied.")
+		// Check for parsing errors
+	case err != nil:
+		formatStandardResponse("BadData", err.Error(), w)
+		log.Println(err)
+	}
+	return &dev, err
 }
 
 func decodeDeviceRequest(w http.ResponseWriter, r *http.Request) (*service.RegisterDeviceRequest, error) { // Decode the REST request

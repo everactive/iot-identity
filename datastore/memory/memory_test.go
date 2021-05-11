@@ -23,8 +23,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/CanonicalLtd/iot-identity/datastore"
-	"github.com/CanonicalLtd/iot-identity/domain"
+	"github.com/everactive/iot-identity/datastore"
+	"github.com/everactive/iot-identity/domain"
 )
 
 func TestStore_OrganizationNew(t *testing.T) {
