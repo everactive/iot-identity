@@ -21,8 +21,8 @@ package postgres
 
 import (
 	"fmt"
-	"github.com/CanonicalLtd/iot-identity/datastore"
-	"github.com/CanonicalLtd/iot-identity/domain"
+	"github.com/everactive/iot-identity/datastore"
+	"github.com/everactive/iot-identity/domain"
 	"log"
 )
 
@@ -59,6 +59,17 @@ func (db *Store) DeviceNew(d datastore.DeviceNewRequest) (string, error) {
 	}
 
 	return deviceID, err
+}
+
+func (db *Store) DeviceDelete(deviceID string) (string, error) {
+	log.Printf("Deleting device: %s", deviceID)
+	_, err := db.Exec(deleteDeviceByID, deviceID)
+	if err != nil {
+		log.Printf("Error deleting device: %v\n", err)
+		return deviceID, fmt.Errorf("error deleting device: %v", err)
+	}
+
+	return deviceID, nil
 }
 
 // DeviceGet fetches a device registration

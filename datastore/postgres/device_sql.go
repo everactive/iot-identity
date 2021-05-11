@@ -60,6 +60,10 @@ select device_id, org_id, brand, model, serial_number, cred_key, cred_cert, cred
 from device
 where device_id=$1`
 
+const deleteDeviceByID = `
+delete from device where device_id=$1
+`
+
 const enrollDeviceSQL = `
 update device
 set store_id=$4, device_key=$5, status=$6

@@ -36,6 +36,7 @@ func (wb IdentityService) Router() *mux.Router {
 	router.Handle("/v1/organization", Middleware(http.HandlerFunc(wb.RegisterOrganization))).Methods("POST")
 	router.Handle("/v1/organizations", Middleware(http.HandlerFunc(wb.OrganizationList))).Methods("GET")
 	router.Handle("/v1/device", Middleware(http.HandlerFunc(wb.RegisterDevice))).Methods("POST")
+	router.Handle("/v1/device/{deviceid}", Middleware(http.HandlerFunc(wb.DeleteDevice))).Methods("DELETE")
 	router.Handle("/v1/devices/{orgid}", Middleware(http.HandlerFunc(wb.DeviceList))).Methods("GET")
 	router.Handle("/v1/devices/{orgid}/{device}", Middleware(http.HandlerFunc(wb.DeviceGet))).Methods("GET")
 	router.Handle("/v1/devices/{orgid}/{device}", Middleware(http.HandlerFunc(wb.DeviceUpdate))).Methods("PUT")

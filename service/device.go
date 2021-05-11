@@ -21,9 +21,9 @@ package service
 
 import (
 	"fmt"
-	"github.com/CanonicalLtd/iot-identity/datastore"
-	"github.com/CanonicalLtd/iot-identity/domain"
-	"github.com/CanonicalLtd/iot-identity/service/cert"
+	"github.com/everactive/iot-identity/datastore"
+	"github.com/everactive/iot-identity/domain"
+	"github.com/everactive/iot-identity/service/cert"
 )
 
 // DeviceList fetches the registered devices
@@ -34,6 +34,11 @@ func (id IdentityService) DeviceList(orgID string) ([]domain.Enrollment, error) 
 // DeviceGet fetches a device registration
 func (id IdentityService) DeviceGet(orgID, deviceID string) (*domain.Enrollment, error) {
 	return id.DB.DeviceGetByID(deviceID)
+}
+
+// DeleteDevice deletes a device already in the service
+func (id IdentityService) DeleteDevice(deviceID string) (string, error) {
+	return id.DB.DeviceDelete(deviceID)
 }
 
 // RegisterDevice registers a new device with the service

@@ -24,9 +24,9 @@ import (
 
 	"github.com/snapcore/snapd/asserts"
 
-	"github.com/CanonicalLtd/iot-identity/config"
-	"github.com/CanonicalLtd/iot-identity/datastore"
-	"github.com/CanonicalLtd/iot-identity/datastore/memory"
+	"github.com/everactive/iot-identity/config"
+	"github.com/everactive/iot-identity/datastore"
+	"github.com/everactive/iot-identity/datastore/memory"
 )
 
 const model1 = `type: model

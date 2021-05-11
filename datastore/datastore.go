@@ -20,7 +20,7 @@
 package datastore
 
 import (
-	"github.com/CanonicalLtd/iot-identity/domain"
+	"github.com/everactive/iot-identity/domain"
 	"github.com/segmentio/ksuid"
 )
 
@@ -37,6 +37,7 @@ type DataStore interface {
 	DeviceEnroll(device DeviceEnrollRequest) (*domain.Enrollment, error)
 	DeviceList(orgID string) ([]domain.Enrollment, error)
 	DeviceUpdate(deviceID string, status domain.Status, deviceData string) error
+	DeviceDelete(deviceID string) (string, error)
 }
 
 // OrganizationNewRequest is the request to create a new organization

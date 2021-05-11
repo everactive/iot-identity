@@ -25,7 +25,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/CanonicalLtd/iot-identity/service"
+	"github.com/everactive/iot-identity/service"
 )
 
 // RegisterOrganization registers a new organization with the identity service
