@@ -20,12 +20,15 @@
 package web
 
 import (
-	"fmt"
 	"net/http"
+	"os"
+
+	log "github.com/sirupsen/logrus"
 
 	"github.com/everactive/iot-identity/config"
 	"github.com/everactive/iot-identity/service"
 	"github.com/gorilla/mux"
+	muxlogrus "github.com/pytimer/mux-logrus"
 )
 
 // Web is the interface for the web API
@@ -56,6 +59,14 @@ func NewIdentityService(settings *config.Settings, id service.Identity) *Identit
 
 // Run starts the web service
 func (wb IdentityService) Run() error {
-	fmt.Printf("Starting service on port :%s\n", wb.Settings.Port)
+	log.Info("Starting service on port : ", wb.Settings.Port)
+
+	r := wb.Router()
+
+	logFormat := os.Getenv("LOG_FORMAT")
+	if logFormat == "json" {
+		r.Use(muxlogrus.NewLogger(muxlogrus.LogOptions{EnableStarting: true, Formatter: &log.JSONFormatter{}}).Middleware)
+	}
+
 	return http.ListenAndServe(":"+wb.Settings.Port, wb.Router())
 }

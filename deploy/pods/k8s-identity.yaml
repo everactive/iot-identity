@@ -84,6 +84,8 @@ spec:
               value: "8883"
             - name: CERTSDIR
               value: "/srv/certs"
+            - name: LOG_FORMAT
+              value: "json"
           ports:
             - containerPort: 8030
       volumes:
