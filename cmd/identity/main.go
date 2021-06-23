@@ -20,8 +20,11 @@
 package main
 
 import (
+	"os"
+
+	log "github.com/sirupsen/logrus"
+
 	"github.com/everactive/iot-identity/service/factory"
-	"log"
 
 	"github.com/everactive/iot-identity/config"
 	"github.com/everactive/iot-identity/service"
@@ -35,6 +38,11 @@ func main() {
 	db, err := factory.CreateDataStore(settings)
 	if err != nil {
 		log.Fatalf("Error accessing data store: %v", settings.Driver)
+	}
+
+	logFormat := os.Getenv("LOG_FORMAT")
+	if logFormat == "json" {
+		log.SetFormatter(&log.JSONFormatter{})
 	}
 
 	srv := service.NewIdentityService(settings, db)
